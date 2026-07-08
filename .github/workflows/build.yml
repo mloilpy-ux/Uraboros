@@ -18,11 +18,13 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # Настраиваем среду Gradle, так как встроенного скрипта у нас нет
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
-    # Запускаем сборку через глобальный gradle вместо ./gradlew
+    # Генерируем тестовый ключ подписи прямо в облаке, чтобы Gradle не ругался
+    - name: Generate Debug Keystore
+      run: keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+
     - name: Build Development APK
       run: gradle assembleDebug
 
