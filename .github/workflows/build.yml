@@ -1,0 +1,33 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    # Настраиваем среду Gradle, так как встроенного скрипта у нас нет
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
+
+    # Запускаем сборку через глобальный gradle вместо ./gradlew
+    - name: Build Development APK
+      run: gradle assembleDebug
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: my-android-app
+        path: app/build/outputs/apk/debug/app-debug.apk
