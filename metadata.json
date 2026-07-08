@@ -1,0 +1,6 @@
+{
+  "name": "macOS Launcher",
+  "description": "An Android launcher visually very close to macOS with a menu bar, dock, blur effects, multiple draggable windows, and interactive MacBook experiences.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
